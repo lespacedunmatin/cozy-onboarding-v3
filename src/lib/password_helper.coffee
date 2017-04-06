@@ -28,9 +28,9 @@ module.exports.getStrength = (password) ->
         (Math.log Math.pow(possibleChars, password.length)) / (Math.log 2)
 
     # levels
-    _at33percent = 64
-    _at66percent = 128
-    _at100percent = 192
+    _at33percent = 50
+    _at66percent = 100
+    _at100percent = 150
 
     if passwordStrength <= _at33percent # between 0 and 33%
         strengthPercentage = passwordStrength * 33 / _at33percent

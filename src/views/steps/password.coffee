@@ -24,7 +24,6 @@ module.exports = class PasswordView extends StepView
         super args...
         @$inputPassword = @$('input[name=password]')
         @$visibilityButton = @$('[action=password-visibility]')
-        @$visibilityIcon = @$('.icon use')
         @$strengthBar = @$('progress')
         @$errorContainer=@$('.errors')
         if @error
@@ -40,10 +39,7 @@ module.exports = class PasswordView extends StepView
         @$inputPassword.attr 'type', data.inputType
 
         # Update Button title
-        @$visibilityButton.attr 'title', t(data.visibilityTxt)
-
-        # Update Button Icon
-        @$visibilityIcon.attr 'xlink:href', data.visibilityIcon
+        @$visibilityButton.html(t(data.visibilityTxt))
 
 
     initialize: (args...) ->
@@ -81,12 +77,9 @@ module.exports = class PasswordView extends StepView
 
     serializeInputData: =>
         visibilityAction = if @isVisible then 'hide' else 'show'
-        iconState = if @isVisible then 'closed' else 'open'
-        icon = require "../../assets/sprites/icon-eye-#{iconState}.svg"
         type = if @isVisible then 'text' else 'password'
         {
             visibilityTxt:  "step password #{visibilityAction}"
-            visibilityIcon: icon
             inputType:      type
         }
 
@@ -104,7 +97,6 @@ module.exports = class PasswordView extends StepView
     getDataForSubmit: ->
         return {
             password: @$inputPassword.val()
-            onboardedSteps: ['welcome', 'agreement', 'password']
         }
 
     renderError: (error) ->

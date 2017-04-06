@@ -1,14 +1,16 @@
 StepView = require '../step'
 _ = require 'underscore'
 
-module.exports = class AccountsView extends StepView
-    template: require '../templates/view_steps_accounts'
+module.exports = class MaifView extends StepView
+    template: require '../templates/view_steps_maif'
 
     ui:
         next: '.controls .next'
+        pass: '.controls .pass'
 
     events:
         'click @ui.next': 'onSubmit'
+        'click @ui.pass': 'onSubmit'
 
 
     onRender: (args...) ->
@@ -21,15 +23,19 @@ module.exports = class AccountsView extends StepView
             @$errorContainer.hide()
 
 
-    onSubmit: (event)->
+    onSubmit: (event) ->
         event.preventDefault()
-        @triggerMethod 'browse:myaccounts', @model
+        @model
+            .submit()
+            .then null, (error) =>
+                @renderError error.message
 
 
     serializeData: ->
         _.extend super,
             id: "#{@model.get 'name'}-figure"
-            figureid: require '../../assets/sprites/icon-thumbup.svg'
+            service: "service-logo--#{@model.get 'name'}"
+            figureid: require '../../assets/sprites/maif.svg'
 
 
     renderError: (error) ->

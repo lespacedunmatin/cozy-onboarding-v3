@@ -1,0 +1,24 @@
+extends _base
+
+
+block header
+    h1=t('step maif title')
+
+block region
+    p= t('step maif description line 1')
+
+    p(class="errors")
+
+    div(class="services")
+      .service
+        if figureid
+          figure.service-logo(class=service)
+            svg: use(xlink:href=figureid)
+        .service-name= t('step maif service')
+        .service-actions
+          button= t('step maif connect')
+
+block controls
+    button(class="next", aria-disabled="true")= t('step maif next')
+    p(class="pass")
+      a(href="#")= t('step maif pass')

@@ -204,6 +204,9 @@ module.exports = class Onboarding
         @contextToken = contextToken
         @registerToken = registerToken
 
+        if @registerToken
+          @removeLocalData()
+
         onStepChanged and @onStepChanged onStepChanged
         onStepFailed and @onStepFailed onStepFailed
         onDone and @onDone onDone
@@ -268,18 +271,18 @@ module.exports = class Onboarding
     fetchInstanceLocally: ->
         instance
         try
-            instance = JSON.parse window.localStorage.getItem 'instance'
+            instance = JSON.parse window.sessionStorage.getItem 'instance'
         catch e
             instance = null
         return instance
 
 
     saveInstanceLocally: (instance) ->
-        window.localStorage.setItem 'instance', JSON.stringify instance
+        window.sessionStorage.setItem 'instance', JSON.stringify instance
 
 
     removeLocalData: ->
-        window.localStorage.removeItem 'instance'
+        window.sessionStorage.removeItem 'instance'
 
 
     updateInstance: (stepName, data) ->
