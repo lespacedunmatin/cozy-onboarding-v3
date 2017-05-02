@@ -1,7 +1,9 @@
 extends _base
 
 
-block header
+block headerif figureid
+    figure.service-logo(class=service)
+      svg: use(xlink:href=figureid)
     h1= t('step firsts Connectors title')
 
 block region

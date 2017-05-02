@@ -31,4 +31,6 @@ module.exports = class ConfirmationView extends StepView
 
 
     serializeData: ->
-        _.extend super
+        _.extend super,
+            id: "#{@model.get 'name'}-figure"
+            figureid: require '../../assets/sprites/icon-thumbup.svg'
